@@ -1,0 +1,64 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    
+<!--    <div class="order-info">-->
+<!--        <h3>Your order</h3>-->
+<!--        <ul>-->
+<!--            {% for item in cart %}-->
+<!--                <li>{{ item.quantity }}x {{ item.product.name }} <span>${{ cart.get_total_price_after_discount }}</span></li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <p>Total: ${{ cart.get_total_price_after_discount }}</p>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+    <div class="order-info">
+        <h3>Your order</h3>
+        <ul>
+            {% for item in cart %}
+                <li>{{ item.quantity }}x {{ item.product.name }} <span>${{ item.total_price }}</span></li>
+            {% endfor %}
+        </ul>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th>Discount: </th>
+                <th>${{ cart.get_discount }}</th>
+            </tr>
+            <tr>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <td>Total: </td>
+                <td>${{ cart.get_total_price_after_discount }}</td>
+            </tr>
+        </table>
+<!--        <ul>-->
+<!--            <p>Discount: ${{ cart.get_discount }}<br>-->
+<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total: ${{ cart.get_total_price_after_discount }}</p>-->
+<!--        </ul>-->
+    </div>
+    
+    <form action="." method="post" class="order-form">
+        {{ form.as_p }}
+        <p><input type="submit" value="Place order"></p>
+        {% csrf_token %}
+    </form>
+{% endblock %}
